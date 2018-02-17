@@ -15,12 +15,13 @@ class App extends React.Component {
   }	
 
   componentDidMount() {
+  	var component = this;
     $.ajax({
       type: 'GET',
       url: '/currencies', 
       success: (data) => {
-        this.setState({
-          items: data
+        component.setState({
+          currencies: JSON.parse(data)
         })
       },
       error: (err) => {
