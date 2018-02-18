@@ -80,10 +80,10 @@ class App extends React.Component {
       <div style={{textAlign:'center'}}>
       <form onSubmit={this.handleSubmit}> 
         <label>
-        <input style={{margin: '10px', width: '50%'}}type="text" value={this.state.term} onChange={this.onChange} />
+        <input style={{margin: '10px', width: '50%', height: '20px'}}type="text" value={this.state.term} onChange={this.onChange} />
         </label>
         <div >
-        <input style={{width:"20%"}}type="submit" value="Add" /></div>
+        <input style={{width:'25%', padding:'14%'}}type="submit" value="Add" /></div>
       </form>
       <List currencies={this.state.currencies} />
       </div>

@@ -13,9 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/currencies', function(req, res) {
   helpers.getCurrencyById(req.body.id, function(error, response, body){
   	let parsedData = JSON.parse(body);
-  	console.log('line16', parsedData)
   	database.save(parsedData);
-  	console.log('line18', body)
     res.end();
   });
   

@@ -9,7 +9,8 @@ let currencySchema = mongoose.Schema({
   _id: String,
   name: String,
   symbol: String,
-  price_usd: String
+  price_usd: String,
+  percent_change_24h: String
 });
 
 let Model = mongoose.model('Currency', currencySchema);
@@ -19,7 +20,8 @@ let save = function(c) {
     _id: c[0].id,
     name: c[0].name,
     symbol: c[0].symbol,
-    price_usd: c[0].price_usd
+    price_usd: c[0].price_usd,
+    percent_change_24h: c[0].percent_change_24h
   });
   newCurrency.save(function(error, currency) {
     if(error) {

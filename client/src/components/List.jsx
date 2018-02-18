@@ -11,7 +11,7 @@ const myCurStyle = {
 }
 const List = (props) => (
   <div style={myCurStyle}>
-    <h2> My Currencies </h2>
+    <h2> My Watchlist </h2>
    
     { props.currencies.map(coin => 
     <div>
