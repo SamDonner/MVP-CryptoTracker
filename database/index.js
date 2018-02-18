@@ -1,22 +1,25 @@
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/cryptodb');
+mongoose.Promise = Promise;
+mongoose.connect('mongodb://localhost/cryptodb'),{
+  useMongoClient: true,
+  promiseLibrary: global.Promise
+}
 
 let currencySchema = mongoose.Schema({
-  id: String,
+  _id: String,
   name: String,
   symbol: String,
   price_usd: String
 });
 
-let Currency = mongoose.model('Currency', currencySchema);
+let Model = mongoose.model('Currency', currencySchema);
 
-let save = (c) => {
-  let newCurrency = new Currency({
-    id: c.id,
-    name: c.name,
-    symbol: c.symbol,
-    price_usd: c.price_usd
+let save = function(c) {
+  let newCurrency = new Model({
+    _id: c[0].id,
+    name: c[0].name,
+    symbol: c[0].symbol,
+    price_usd: c[0].price_usd
   });
   newCurrency.save(function(error, currency) {
     if(error) {
@@ -25,8 +28,8 @@ let save = (c) => {
   });
 }
 
-let retrieve = (callback) => {
-  let query = Currency.find();
+let retrieve = function (callback) {
+  let query = Model.find();
   query.select({});
   query.exec(function(error, currencies) {
     callback(currencies);

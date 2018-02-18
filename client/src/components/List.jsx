@@ -1,15 +1,26 @@
 import React from 'react';
+import CryptosInList from './CryptosInList.jsx';
 
+const myCurStyle = {
+  border:'1px solid black',
+  padding: '50px',
+  background: 'black',
+  color: 'white',
+  borderRadius: '15px',
+  margin: '20px'
+}
 const List = (props) => (
-  <ul>
-    {props.currencies.map(function(currency) { 
-      
-        <li>{currency}</li>;
-     
-      }
-  </ul>
+  <div style={myCurStyle}>
+    <h2> My Currencies </h2>
+   
+    { props.currencies.map(coin => 
+    <div>
+      <CryptosInList coin={coin}/></div>
+    )}
+  </div>
 )
 
 
 
 export default List;
+

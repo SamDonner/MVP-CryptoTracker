@@ -3,62 +3,94 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import List from './components/List.jsx';
 
+const appStyle = {
+  margin: '0 auto',
+  width: '50%'
+};
+
+const titleStyle = {
+  background: 'black',
+  color: 'white',
+  textAlign: "center",
+  borderRadius: '10px'
+}
+
+
 class App extends React.Component {
   constructor(props) {
   	super(props);
   	this.state = {
   	  term: '',
   	  currencies: []
-  	};	
+  	};
+  	this.getCurrencies = this.getCurrencies.bind(this);	
   	this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }	
 
-  componentDidMount() {
-  	var component = this;
-    $.ajax({
-      type: 'GET',
-      url: '/currencies', 
-      success: (data) => {
-        component.setState({
-          currencies: JSON.parse(data)
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
-  }
+   getCurrencies() {
+     $.ajax({
+       type: 'GET',
+       url: '/currencies', 
+       success: (data) => {
+      	 console.log(JSON.parse(data))
+         this.setState({
+           currencies: JSON.parse(data)
+         })
+       },
+       error: (err) => {
+         console.log('err', err);
+       }
+     });
+   }
+
+   componentDidMount() {
+  	this.getCurrencies();
+
+   }
   
 
   onChange(event) {
     this.setState({term: event.target.value.toLowerCase()});
+
   }
 
   handleSubmit(event) {
   	console.log(this.state.term)
-  	//event.preventDefault();
-
-  $.post('/currencies', {id: this.state.term}, function (data){
+    event.preventDefault();
+    var that = this;
+    $.post('/currencies', {id: this.state.term}, function (data){
       console.log('searched');
+      that.setState({
+      	term: ''
+      })
+      that.getCurrencies();
     })
+  
+
   }
+
+
 
 
   render() {
     return (
-    <div>
-      <h1>CryptoTracker</h1>
+    <div style={appStyle}>
+      <h1 style={titleStyle}>CryptoWatcher</h1>
+      <div style={{textAlign:'center'}}>
       <form onSubmit={this.handleSubmit}> 
         <label>
-        <input type="text" value={this.state.term} onChange={this.onChange} />
+        <input style={{margin: '10px', width: '50%'}}type="text" value={this.state.term} onChange={this.onChange} />
         </label>
-        <input type="submit" value="Add" />
+        <div >
+        <input style={{width:"20%"}}type="submit" value="Add" /></div>
       </form>
       <List currencies={this.state.currencies} />
+      </div>
     </div>
     );
   }
 }
+
 
 ReactDOM.render(<App />, document.getElementById('app'));

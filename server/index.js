@@ -16,7 +16,7 @@ app.post('/currencies', function(req, res) {
   	console.log('line16', parsedData)
   	database.save(parsedData);
   	console.log('line18', body)
-    res.send(body);
+    res.end();
   });
   
 });

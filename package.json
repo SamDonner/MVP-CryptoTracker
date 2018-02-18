@@ -29,6 +29,7 @@
     "jquery": "^3.1.1",
     "mongoose": "^4.10.8",
     "react": "^15.4.2",
+    "react-basic-table": "^1.0.14",
     "react-dom": "^15.4.2",
     "request": "^2.81.0"
   },
